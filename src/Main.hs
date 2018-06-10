@@ -7,6 +7,8 @@ import Data.Monoid ((<>))
 import Data.Aeson (FromJSON, ToJSON)
 import GHC.Generics
 import Web.Scotty
+import System.Environment
+
 
 data User = User { userId :: Int, userName :: String } deriving (Show, Generic)
 instance ToJSON User
@@ -26,7 +28,7 @@ matchesId id user = userId user == id
 
 main = do
   putStrLn "Starting Server..."
-  port <- read <$> getEnv “PORT”
+  port <- read <$> getEnv "PORT"
   
   scotty port $ do
     get "/hello/:name" $ do
