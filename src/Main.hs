@@ -26,7 +26,9 @@ matchesId id user = userId user == id
 
 main = do
   putStrLn "Starting Server..."
-  scotty 3000 $ do
+  port <- read <$> getEnv “PORT”
+  
+  scotty port $ do
     get "/hello/:name" $ do
       name <- param "name"
       text ("hello " <> name <> "!")
